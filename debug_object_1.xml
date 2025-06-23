@@ -1,0 +1,58 @@
+<ns0:Object xmlns:ns0="http://www.onvif.org/ver10/schema" ObjectId="547786">
+    <ns0:Appearance>
+        <ns0:Shape>
+            <ns0:BoundingBox bottom="0.54" top="0.62" right="0.08" left="-0.01" />
+            <ns0:CenterOfGravity x="0.03" y="0.58" />
+            <ns0:Polygon>
+                <ns0:Point x="0.00" y="0.59" />
+                <ns0:Point x="0.00" y="0.58" />
+                <ns0:Point x="0.00" y="0.57" />
+                <ns0:Point x="0.00" y="0.56" />
+                <ns0:Point x="0.01" y="0.56" />
+                <ns0:Point x="0.02" y="0.55" />
+                <ns0:Point x="0.02" y="0.54" />
+                <ns0:Point x="0.03" y="0.54" />
+                <ns0:Point x="0.04" y="0.54" />
+                <ns0:Point x="0.05" y="0.54" />
+                <ns0:Point x="0.06" y="0.54" />
+                <ns0:Point x="0.07" y="0.54" />
+                <ns0:Point x="0.07" y="0.58" />
+                <ns0:Point x="0.06" y="0.59" />
+                <ns0:Point x="0.05" y="0.60" />
+                <ns0:Point x="0.05" y="0.61" />
+                <ns0:Point x="0.04" y="0.61" />
+                <ns0:Point x="0.04" y="0.63" />
+                <ns0:Point x="0.03" y="0.63" />
+                <ns0:Point x="0.02" y="0.63" />
+                <ns0:Point x="0.01" y="0.63" />
+                <ns0:Point x="0.00" y="0.63" />
+            </ns0:Polygon>
+        </ns0:Shape>
+        <ns0:Color>
+            <ns0:ColorCluster>
+                <ns0:Color X="95.62" Y="95.62" Z="95.62" />
+                <ns0:Weight>0.52</ns0:Weight>
+            </ns0:ColorCluster>
+            <ns0:ColorCluster>
+                <ns0:Color X="31.88" Y="31.88" Z="31.88" />
+                <ns0:Weight>0.48</ns0:Weight>
+            </ns0:ColorCluster>
+        </ns0:Color>
+        <ns0:Class>
+            <ns0:ClassCandidate>
+                <ns0:Type>Vehical</ns0:Type>
+                <ns0:Likelihood>0.97</ns0:Likelihood>
+            </ns0:ClassCandidate>
+            <ns0:Extension>
+                <ns0:OtherTypes>
+                    <ns0:Type>Vehicle</ns0:Type>
+                    <ns0:Likelihood>0.97</ns0:Likelihood>
+                </ns0:OtherTypes>
+            </ns0:Extension>
+            <ns0:Type Likelihood="0.97">Vehicle</ns0:Type>
+        </ns0:Class>
+        <ns0:VehicleInfo>
+            <ns0:Type Likelihood="0.97">Vehicle</ns0:Type>
+        </ns0:VehicleInfo>
+    </ns0:Appearance>
+</ns0:Object>
