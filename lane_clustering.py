@@ -73,15 +73,53 @@ class DBSCAN():
             coordinates.extend(zip(valid_neighbors_x, valid_neighbors_y))
             stack.extend(zip(valid_neighbors_x, valid_neighbors_y))
 
-    def remove_outliers(self, coordinates, z_score_threshold=2.2) -> list:
+    # def remove_outliers(self, coordinates, z_score_threshold=2.2) -> list:
+    #     if len(coordinates) <= 1:
+    #         return coordinates
+    #     x_coords, y_coords = zip(*coordinates)
+    #     x_coords = np.array(x_coords)
+    #     y_coords = np.array(y_coords)
+    #     z_scores = np.abs((x_coords - np.mean(x_coords)) / np.std(x_coords))
+    #     valid_indices = z_scores < z_score_threshold
+    #     return list(zip(x_coords[valid_indices], y_coords[valid_indices]))
+
+    def remove_outliers(self, coordinates, z_score_threshold=1.8, window_size=15) -> list:
         if len(coordinates) <= 1:
             return coordinates
-        x_coords, y_coords = zip(*coordinates)
-        x_coords = np.array(x_coords)
-        y_coords = np.array(y_coords)
-        z_scores = np.abs((x_coords - np.mean(x_coords)) / np.std(x_coords))
-        valid_indices = z_scores < z_score_threshold
-        return list(zip(x_coords[valid_indices], y_coords[valid_indices]))
+        
+        # Convert to numpy array and sort by y-coordinate (ascending)
+        coords_array = np.array(coordinates)
+        sorted_indices = np.argsort(coords_array[:, 1])
+        sorted_coords = coords_array[sorted_indices]
+        
+        valid_mask = np.ones(len(sorted_coords), dtype=bool)
+        
+        # Apply sliding window z-score filtering
+        for i in range(len(sorted_coords)):
+            # Define window bounds
+            window_start = max(0, i - window_size // 2)
+            window_end = min(len(sorted_coords), window_start + window_size)
+            
+            # Adjust window_start if we're near the end
+            if window_end - window_start < window_size and window_end == len(sorted_coords):
+                window_start = max(0, window_end - window_size)
+            
+            # Extract window coordinates
+            window_coords = sorted_coords[window_start:window_end]
+            x_coords = window_coords[:, 0]
+            
+            # Calculate z-score for current point relative to window
+            if len(x_coords) > 1 and np.std(x_coords) > 0:
+                current_x = sorted_coords[i, 0]
+                z_score = np.abs((current_x - np.mean(x_coords)) / np.std(x_coords))
+                
+                # Mark as invalid if z-score exceeds threshold
+                if z_score >= z_score_threshold:
+                    valid_mask[i] = False
+        
+        # Filter valid coordinates and return as list of tuples
+        valid_coords = sorted_coords[valid_mask]
+        return [(int(x), int(y)) for x, y in valid_coords]
 
     def smooth_trajectory(self, coordinates, base_kernel_size=18, base_std=10, interpolate=False) -> list:
         if len(coordinates) <= 1:
